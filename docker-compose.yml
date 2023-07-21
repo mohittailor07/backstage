@@ -1,0 +1,32 @@
+# Use postgres/example user/password credentials
+version: '3.1'
+
+services:
+
+  db:
+    image: postgres
+    restart: always
+    ports: 
+      - 5432:5432
+    environment:
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
+
+  adminer:
+    image: adminer
+    restart: always
+    ports:
+      - 8080:8080
+
+  backstage:
+    image: backstage
+    restart: always
+    ports:
+      - 7007:7007
+    environment:
+      - POSTGRES_HOST=${POSTGRES_HOST}
+      - POSTGRES_PORT=${POSTGRES_PORT}
+      - POSTGRES_USER=${POSTGRES_USER}
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
+      - AUTH_GITHUB_CLIENT_ID=${AUTH_GITHUB_CLIENT_ID}
+      - AUTH_GITHUB_CLIENT_SECRET=${AUTH_GITHUB_CLIENT_SECRET}
+      - GITHUB_APP_CREDENTIALS=${GITHUB_APP_CREDENTIALS}
